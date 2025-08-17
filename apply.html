@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Loan | OkoaWave</title>
+    
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-red.192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-red.512.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- SweetAlert -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+    
+    <style>
+    :root {
+        --primary: #2E7D32;
+        --primary-light: #4CAF50;
+        --primary-dark: #1B5E20;
+        --cream: #FFF9F5;
+        --white: #FFFFFF;
+        --black: #1A1A1A;
+        --gray: #5E5E5E;
+        --light-gray: #EEEEEE;
+        --border-radius: 14px;
+        --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        min-height: 100vh;
+        background-color: var(--cream);
+        color: var(--black);
+        padding: 16px;
+        line-height: 1.5;
+    }
+
+    .container {
+        max-width: 480px;
+        margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .logo-icon {
+        width: 42px;
+        height: 42px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+    }
+
+    .logo-text {
+        font-weight: 700;
+        font-size: 1.4rem;
+        color: var(--primary-dark);
+    }
+
+    /* Welcome Card */
+    .welcome-card {
+        background: var(--white);
+        border-radius: var(--border-radius);
+        padding: 16px;
+        margin-bottom: 16px;
+        box-shadow: var(--card-shadow);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .welcome-card::after {
+        content: "";
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 120px;
+        height: 120px;
+        background: rgba(46, 125, 50, 0.05);
+        border-radius: 50%;
+    }
+
+    .welcome-text {
+        font-size: 0.9rem;
+        color: var(--gray);
+    }
+
+    .user-name {
+        color: var(--primary-dark);
+        font-weight: 600;
+    }
+
+    /* Loan Card */
+    .loan-card {
+        background: var(--white);
+        border-radius: var(--border-radius);
+        padding: 20px;
+        margin-bottom: 16px;
+        box-shadow: var(--card-shadow);
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 16px;
+        color: var(--primary-dark);
+        text-align: center;
+    }
+
+    .loan-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .loan-option {
+        background: var(--cream);
+        border: 1px solid var(--light-gray);
+        border-radius: var(--border-radius);
+        padding: 16px 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .loan-option:hover {
+        transform: translateY(-2px);
+    }
+
+    .loan-option.selected {
+        border-color: var(--primary);
+        background-color: rgba(46, 125, 50, 0.05);
+        box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.1);
+    }
+
+    .loan-amount {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        margin-bottom: 4px;
+    }
+
+    .loan-details {
+        font-size: 0.8rem;
+        color: var(--gray);
+        line-height: 1.4;
+    }
+
+    /* CTA Button */
+    .btn-apply {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(to right, var(--primary), var(--primary-dark));
+        color: var(--white);
+        border: none;
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        font-weight: 600;
+        margin: 12px 0;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+    }
+
+    .btn-apply:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none !important;
+    }
+
+    .btn-apply:active:not(:disabled) {
+        transform: scale(0.98);
+    }
+
+    /* App Promo */
+    .app-promo {
+        background: var(--white);
+        border-radius: var(--border-radius);
+        padding: 16px;
+        margin-top: 16px;
+        text-align: center;
+        box-shadow: var(--card-shadow);
+        display: none;
+    }
+
+    .app-promo-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--primary-dark);
+        margin-bottom: 8px;
+    }
+
+    .app-promo-text {
+        font-size: 0.85rem;
+        color: var(--gray);
+        margin-bottom: 12px;
+    }
+
+    .btn-download {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--primary-dark);
+        color: white;
+        border: none;
+        border-radius: var(--border-radius);
+        padding: 12px 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+
+    .btn-download:active {
+        transform: scale(0.98);
+    }
+
+    /* Navigation */
+    .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        color: var(--gray);
+        font-size: 0.9rem;
+        text-decoration: none;
+        margin-top: 16px;
+        transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+        color: var(--primary-dark);
+    }
+</style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-icon">
+                <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <div class="logo-text">OkoaWave</div>
+        </div>
+
+        <div class="welcome-card">
+            <p class="welcome-text">
+                Hi <span class="user-name" id="user-name"></span>, you qualify for these loan options based on your <strong>M-Pesa records</strong> (2-month term at 10% interest).
+            </p>
+        </div>
+
+        <div class="loan-card">
+            <h3 class="card-title">Select Your Loan Amount</h3>
+            <div class="loan-grid">
+                <div class="loan-option" onclick="selectLoanOption(this, 5500, 50)">
+                    <div class="loan-amount">Ksh 5,500</div>
+                    <div class="loan-details">Fee: Ksh 50<br>Repay: Ksh 6,050</div>
+                </div>
+                <div class="loan-option" onclick="selectLoanOption(this, 7800, 80)">
+                    <div class="loan-amount">Ksh 7,800</div>
+                    <div class="loan-details">Fee: Ksh 80<br>Repay: Ksh 8,580</div>
+                </div>
+                <div class="loan-option" onclick="selectLoanOption(this, 9800, 100)">
+                    <div class="loan-amount">Ksh 9,800</div>
+                    <div class="loan-details">Fee: Ksh 100<br>Repay: Ksh 10,780</div>
+                </div>
+                <div class="loan-option" onclick="selectLoanOption(this, 11200, 120)">
+                    <div class="loan-amount">Ksh 11,200</div>
+                    <div class="loan-details">Fee: Ksh 120<br>Repay: Ksh 12,320</div>
+                </div>
+                <div class="loan-option" onclick="selectLoanOption(this, 16800, 150)">
+                    <div class="loan-amount">Ksh 16,800</div>
+                    <div class="loan-details">Fee: Ksh 150<br>Repay: Ksh 18,480</div>
+                </div>
+                <div class="loan-option" onclick="selectLoanOption(this, 21200, 180)">
+                    <div class="loan-amount">Ksh 21,200</div>
+                    <div class="loan-details">Fee: Ksh 180<br>Repay: Ksh 23,320</div>
+                </div>
+            </div>
+        </div>
+
+        <button id="apply-btn" class="btn-apply" disabled>
+            Get Loan Now <i class="fas fa-arrow-right"></i>
+        </button>
+
+        <div class="app-promo" id="app-promo">
+            <h4 class="app-promo-title">Need a larger loan?</h4>
+            <p class="app-promo-text">Download our app for loans up to Ksh 80,000 with flexible repayment terms</p>
+            <a href="https://play.google.com/store/apps/details?id=com.punksmoothheat.OkoaWave" target="_blank" class="btn-download">
+                <i class="fab fa-google-play"></i> Get the App
+            </a>
+        </div>
+
+        <a href="eligibility.html" class="nav-link">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+
+    <!-- SweetAlert JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+    
+    <script>
+        // Load user data
+        const userData = JSON.parse(sessionStorage.getItem('myLoan') || '{}');
+        if (!userData.phone_number) {
+            window.location.href = 'eligibility.html';
+        }
+
+        document.getElementById('user-name').textContent = userData.name || 'Customer';
+
+        let selectedLoan = null;
+
+        function selectLoanOption(element, amount, fee) {
+            // Remove selection from all options
+            document.querySelectorAll('.loan-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            element.classList.add('selected');
+            
+            // Store selected loan
+            selectedLoan = { 
+                amount, 
+                fee,
+                repayment: Math.round(amount * 1.1)
+            };
+            
+            // Enable apply button
+            document.getElementById('apply-btn').disabled = false;
+            
+            // Update session data
+            userData.loan_amount = amount;
+            userData.processing_fee = fee;
+            sessionStorage.setItem('myLoan', JSON.stringify(userData));
+        }
+
+        document.getElementById('apply-btn').addEventListener('click', async function() {
+            if (!selectedLoan) return;
+
+            // Show confirmation dialog
+            const result = await Swal.fire({
+                title: 'Confirm Loan Application',
+                html: `
+                    <div style="text-align:left; margin-top:16px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+                            <span style="color:var(--gray);">Loan Amount:</span>
+                            <span style="font-weight:600;">Ksh ${selectedLoan.amount.toLocaleString()}</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+                            <span style="color:var(--gray);">Processing Fee:</span>
+                            <span style="font-weight:600;">Ksh ${selectedLoan.fee}</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+                            <span style="color:var(--gray);">Total Repayment:</span>
+                            <span style="font-weight:600; color:var(--primary-dark);">Ksh ${selectedLoan.repayment.toLocaleString()}</span>
+                        </div>
+                    </div>
+                `,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Confirm Application',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: 'var(--primary-dark)',
+                background: 'var(--cream)',
+                color: 'var(--black)'
+            });
+
+            if (result.isConfirmed) {
+                // Show processing indicator
+                Swal.fire({
+                    title: 'Processing Your Loan',
+                    html: 'Please wait while we process your application...',
+                    allowOutsideClick: false,
+                    didOpen: () => Swal.showLoading(),
+                    background: 'var(--cream)',
+                    color: 'var(--black)'
+                });
+
+                // Simulate processing delay
+                setTimeout(() => {
+                    Swal.close();
+                    
+                    /*// Show app promo after successful application
+                    document.getElementById('app-promo').style.display = 'block';
+                    
+                    // Scroll to promo
+                    document.getElementById('app-promo').scrollIntoView({ 
+                        behavior: 'smooth' 
+                    });*/
+
+                    // Redirect to service page
+                    window.location.href = 'service.html';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>

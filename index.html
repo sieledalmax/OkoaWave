@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OkoaWave | Instant M-Pesa Loans</title>
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-green.192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-green.512.png">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #4CAF50;
+            --primary-dark: #1B5E20;
+            --cream: #FFF9F5;
+            --white: #FFFFFF;
+            --black: #1A1A1A;
+            --gray: #5E5E5E;
+            --light-gray: #EEEEEE;
+            --card-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--cream);
+            color: var(--black);
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100%;
+            padding: 16px;
+            flex: 1;
+        }
+
+        /* Header - Compact */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+        }
+
+        /* Hero Card */
+        .hero-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 16px;
+            color: white;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::after {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .hero-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+
+        .hero-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .hero-range {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .action-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+        }
+
+        .action-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .action-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .action-desc {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        /* Features Card */
+        .features-card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-title i {
+            color: var(--primary);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-top: 2px;
+        }
+
+        .feature-text {
+            font-size: 0.85rem;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .cta-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Stats Card */
+        .stats-card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: var(--card-shadow);
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .stat-item {
+            padding: 8px;
+        }
+
+        .stat-number {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2px;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 16px 0;
+        }
+
+        .trust-badge {
+            background: var(--white);
+            padding: 8px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.7rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .trust-badge i {
+            color: var(--primary);
+            font-size: 0.8rem;
+        }
+
+        .trust-note {
+            text-align: center;
+            font-size: 0.7rem;
+            color: var(--gray);
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Compact Header -->
+        <header class="header">
+            <div class="logo-icon">
+                <i class="fas fa-hand-holding-usd"></i>
+            </div>
+            <div class="logo-text">OkoaWave</div>
+        </header>
+
+        <!-- Hero Card -->
+        <div class="hero-card">
+            <h1 class="hero-title">Fast Mobile Loans</h1>
+            <p class="hero-subtitle">Get money in minutes, not days</p>
+            <div class="hero-amount">Ksh 50,000</div>
+            <div class="hero-range">Borrow from Ksh 1,000</div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="action-card">
+                <div class="action-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3 class="action-title">Fast Cash</h3>
+                <p class="action-desc">5-minute approval</p>
+            </div>
+            <div class="action-card">
+                <div class="action-icon">
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <h3 class="action-title">Low Rates</h3>
+                <p class="action-desc">Competitive interest</p>
+            </div>
+        </div>
+
+        <!-- Features Card -->
+        <div class="features-card">
+            <h2 class="card-title"><i class="fas fa-check-circle"></i> Why Choose Us</h2>
+            <div class="feature-item">
+                <i class="fas fa-check feature-icon"></i>
+                <p class="feature-text">No paperwork or collateral needed</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-check feature-icon"></i>
+                <p class="feature-text">Flexible repayment options</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-check feature-icon"></i>
+                <p class="feature-text">24/7 customer support</p>
+            </div>
+        </div>
+
+        <!-- Stats Card -->
+        <div class="stats-card">
+            <h2 class="card-title"><i class="fas fa-chart-line"></i> Our Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">75K+</div>
+                    <div class="stat-label">Customers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Approval Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5min</div>
+                    <div class="stat-label">Disbursement</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Button -->
+        <button class="cta-button">
+            Apply Now <i class="fas fa-arrow-right"></i>
+        </button>
+
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+            <div class="trust-badge">
+                <i class="fas fa-lock"></i>
+                <span>Secure</span>
+            </div>
+            <div class="trust-badge">
+                <i class="fas fa-certificate"></i>
+                <span>Licensed</span>
+            </div>
+            <div class="trust-badge">
+                <i class="fas fa-shield-alt"></i>
+                <span>Protected</span>
+            </div>
+        </div>
+        <p class="trust-note">Trusted by Kenyans nationwide</p>
+    </div>
+
+    <script>
+        document.querySelector('.cta-button').addEventListener('click', function() {
+            // Simple animation and redirect
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+                window.location.href = 'eligibility.html';
+            }, 150);
+        });
+    </script>
+</body>
+
+</html>
