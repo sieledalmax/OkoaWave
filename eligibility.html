@@ -319,8 +319,8 @@
     
     <script>
         const nameRegex = /^[a-zA-Z\s.'-]{2,}$/;
-        const phoneRegex = /^0[7]\d{8}$/;
-        const idRegex = /^\d{7,8}$/;
+        const phoneRegex = /^(?:\+?254|0)[17]\d{8}$/; // Updated regex for all Kenyan numbers
+    const idRegex = /^\d{7,8}$/;
 
         function handleSubmit(e) {
             e.preventDefault();
